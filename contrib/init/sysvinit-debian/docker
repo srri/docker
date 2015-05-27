@@ -46,7 +46,7 @@ if [ ! -x $DOCKER ]; then
 fi
 
 check_init() {
-         if init_is_upstart; then
+	 if [ -x /sbin/initctl ] && /sbin/initctl version 2>/dev/null | grep -q upstart; then        
                 log_failure_msg "$DOCKER_DESC is managed via upstart, try using service $BASE $1"
                 exit 1
          fi
